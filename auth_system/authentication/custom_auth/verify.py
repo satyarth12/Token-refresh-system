@@ -30,7 +30,7 @@ class JWTAuthentication(BaseAuthentication):
             return None
 
         try:
-            # getting the encoded access_token, sperated by a space (' ')
+            # getting the encoded auth_token, sperated by a space (' ')
             auth_token = authorization_header.split(" ")[1]
 
             # decoding the encoded payload to get user details
