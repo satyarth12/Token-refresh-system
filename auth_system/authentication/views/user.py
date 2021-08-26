@@ -2,6 +2,7 @@
 This file has the module for user Login and SignUp
 """
 
+from django.utils.decorators import method_decorator
 from authentication.custom_auth.generate_token import (
     generate_auth_token, generate_refresh_token)
 from authentication.serializers import UserSerializer
@@ -39,7 +40,9 @@ class UserSignUp(views.APIView):
 class UserLogin(views.APIView):
     permission_classes = [AllowAny]
 
-    @ensure_csrf_cookie
+    # ensure_csrf_cookie Enforces DRF to send CSRF cookie as a
+    # response in case of a successful login
+    @method_decorator(ensure_csrf_cookie)
     def post(self, request):
         """
         Module for allowing user to login

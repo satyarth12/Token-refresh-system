@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'authentication'
+    'rest_framework',
+    'authentication',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +126,18 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Django REST settings
+REST_FRAMEWORK = {
+    # AUTH classes, that'll allow devs to make the mode of accessing the APIs
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'authentication.custom_auth.verify.JWTAuthentication',
+    ],
+
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+
+}
