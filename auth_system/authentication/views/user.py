@@ -61,7 +61,7 @@ class UserLogin(views.APIView):
 
         serializer_user = UserSerializer(user).data
 
-        # generating access token and refresh token
+        # generating auth token and refresh token
         auth_token = generate_auth_token(user=user)
         refresh_token = generate_refresh_token(user=user)
 
