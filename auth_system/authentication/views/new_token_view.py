@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from rest_framework import views, exceptions
 from rest_framework.permissions import AllowAny
-
+from django.views.decorators.csrf import csrf_protect
 from rest_framework.response import Response
 
 from authentication.custom_auth.generate_token import (
@@ -15,6 +15,7 @@ USER = get_user_model
 class RegenerateAuthToken(views.APIView):
     permission_classes = [AllowAny]
 
+    @csrf_protect
     def post(self, request):
         """
         To generate a new auth token the request expects -
