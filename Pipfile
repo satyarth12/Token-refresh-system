@@ -6,8 +6,11 @@ name = "pypi"
 [packages]
 django = "*"
 pyjwt = "*"
+flake8 = "*"
+djangorestframework = "*"
 
 [dev-packages]
+autopep8 = "*"
 
 [requires]
 python_version = "3.9"
