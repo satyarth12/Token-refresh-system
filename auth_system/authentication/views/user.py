@@ -1,5 +1,6 @@
 """
-This file has the module for user Login and SignUp
+This file has the module for user SignUp, user Login
+and getting user details, in respective order.
 """
 
 from django.utils.decorators import method_decorator
@@ -66,10 +67,31 @@ class UserLogin(views.APIView):
 
         # generating auth token and refresh token
         auth_token = generate_auth_token(user=user)
-        refresh_token = generate_refresh_token(user=user)
+        refresh_token, expiry = generate_refresh_token(user=user)
 
         # storing the cookie in the response
         response.set_cookie(key='refreshToken',
-                            value=refresh_token, httponly=True)
+                            value=refresh_token,
+                            expires=expiry,
+                            httponly=True)
         response.data = {'auth_token': auth_token, 'user': serializer_user}
         return response
+
+
+class UserView(views.APIView):
+    """
+    The default permission_class is IsAuthenticated, so a user needs
+    to be authenticated in order to access this endpoint.
+    """
+    def get(self, request, *args, **kwargs):
+        """
+        Module for getting the current loggedIn user details
+        """
+        curr_user_email = request.user.email
+        try:
+            user_instance = USER.objects.get(email=curr_user_email)
+        except USER.DoesNotExist:
+            return Response('User not found', status=status.HTTP_404_NOT_FOUND)
+
+        user_data = UserSerializer(user_instance).data
+        return Response(user_data)

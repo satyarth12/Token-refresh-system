@@ -51,4 +51,4 @@ def generate_refresh_token(user):
     refresh_token = jwt.encode(
         refresh_token_payload, settings.SECRET_KEY, algorithm="HS256"
     )
-    return refresh_token
+    return refresh_token, refresh_token_payload['exp']
