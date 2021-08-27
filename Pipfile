@@ -8,6 +8,9 @@ django = "*"
 pyjwt = "*"
 flake8 = "*"
 djangorestframework = "*"
+pytest-django = "*"
+pytest-factoryboy = "*"
+faker = "*"
 
 [dev-packages]
 autopep8 = "*"

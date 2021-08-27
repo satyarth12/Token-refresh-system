@@ -127,6 +127,9 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTH_USER_MODEL = 'authentication.CustomUser'
+LOGIN_URL = '/auth/login/'
+
 # Django REST settings
 REST_FRAMEWORK = {
     # AUTH classes, that'll allow devs to make the mode of accessing the APIs
