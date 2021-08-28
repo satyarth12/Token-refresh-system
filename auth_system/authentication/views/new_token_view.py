@@ -17,7 +17,7 @@ class RegenerateAuthToken(views.APIView):
     permission_classes = [AllowAny]
 
     @method_decorator(csrf_protect)
-    def post(self, request):
+    def get(self, request):
         """
         To generate a new auth token the request expects -
 
