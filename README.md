@@ -13,10 +13,11 @@ A JWT based token refresh system for sysytem authentication and authorization.
     git clone https://github.com/satyarth12/Token-refresh-system.git
     ```
   - Installing all the project dependencies listed in the Pipfile
+    **USING PIPENV**
     ```
     pip install pipenv
     pipenv shell
-    pipenv install
+    pipenv install -r requirements.txt
     ```
 
 ## Runnin the test case
