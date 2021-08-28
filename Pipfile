@@ -11,6 +11,7 @@ djangorestframework = "*"
 pytest-django = "*"
 pytest-factoryboy = "*"
 faker = "*"
+drf-yasg = "*"
 
 [dev-packages]
 autopep8 = "*"

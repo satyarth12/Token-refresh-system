@@ -18,8 +18,7 @@ class RegenerateAuthToken(views.APIView):
 
     @method_decorator(csrf_protect)
     def get(self, request):
-        """
-        To generate a new auth token the request expects -
+        """ To generate a new auth token the request expects:
 
         1. A cookie that contains a valid refresh_token
         2. A header 'X-CSRFTOKEN' with a valid csrf token

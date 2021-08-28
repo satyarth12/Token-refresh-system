@@ -9,17 +9,21 @@ from authentication.custom_auth.generate_token import (
 from authentication.serializers import UserSerializer
 
 from django.contrib.auth import get_user_model
-from rest_framework import views, status, exceptions
+from rest_framework import views, status, exceptions, generics
 from rest_framework.response import Response
 
 from django.views.decorators.csrf import ensure_csrf_cookie
 from rest_framework.permissions import AllowAny
 
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+
 USER = get_user_model()
 
 
-class UserSignUp(views.APIView):
+class UserSignUp(generics.GenericAPIView):
     permission_classes = [AllowAny]
+    serializer_class = UserSerializer
 
     def post(self, request):
         """
@@ -40,7 +44,16 @@ class UserSignUp(views.APIView):
 
 class UserLogin(views.APIView):
     permission_classes = [AllowAny]
+    serializer_class = UserSerializer
 
+    @swagger_auto_schema(request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        required=['email', 'password'],
+        properties={
+            'email': openapi.Schema(type=openapi.TYPE_STRING),
+            'password': openapi.Schema(type=openapi.TYPE_STRING)
+        },
+    ))
     # ensure_csrf_cookie Enforces DRF to send CSRF cookie as a
     # response in case of a successful login
     @method_decorator(ensure_csrf_cookie)
@@ -83,6 +96,11 @@ class UserView(views.APIView):
     The default permission_class is IsAuthenticated, so a user needs
     to be authenticated in order to access this endpoint.
     """
+    token_param_config = openapi.Parameter(
+        'Authorization', in_=openapi.IN_HEADER, description='EXAMPLE: Token auth_token',
+        type=openapi.TYPE_STRING, required=['Authorization'])
+
+    @swagger_auto_schema(manual_parameters=[token_param_config])
     def get(self, request, *args, **kwargs):
         """
         Module for getting the current loggedIn user details
